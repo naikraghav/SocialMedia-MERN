@@ -19,17 +19,21 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
     // Handle login logic here
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/login", formData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/login",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
       if (response.data.success) {
         console.log("Login successful:", response.data);
         navigate("/");
@@ -37,7 +41,6 @@ const Login = () => {
     } catch (error) {
       console.error("Login error:", error);
     }
-
   };
 
   return (
@@ -78,19 +81,20 @@ const Login = () => {
                   onChange={handleChange}
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-3 text-[17px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <button 
+                <button
                   type="submit"
                   onClick={handleSubmit}
-                  className="w-full bg-[#1877f2] text-white text-[20px] font-bold rounded-lg py-3 hover:bg-[#166fe5]">
+                  className="w-full bg-[#1877f2] text-white text-[20px] font-bold rounded-lg py-3 hover:bg-[#166fe5]"
+                >
                   Log in
                 </button>
                 <div className="text-center my-3">
-                  <a
-                    href="#"
+                  <Link
+                    to="/forgot-password"
                     className="text-[#1877f2] text-[14px] font-medium hover:underline"
                   >
                     Forgotten password?
-                  </a>
+                  </Link>
                 </div>
                 <hr className="border-gray-300 my-4" />
                 <div className="flex justify-center">
