@@ -32,7 +32,7 @@ const Login = () => {
       });
       if (response.data.success) {
         console.log("Login successful:", response.data);
-        navigate("/home");
+        navigate("/");
       }
     } catch (error) {
       console.error("Login error:", error);

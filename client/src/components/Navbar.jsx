@@ -15,7 +15,7 @@ import {
 
 export default function FacebookNavbar() {
   return (
-    <header className="w-full h-14 bg-white shadow flex items-center justify-center  px-4">
+    <header className="w-full h-14 bg-white shadow flex items-center justify-center z-50 px-4">
       {/* Left: Logo + Search */}
       <div className="flex items-center gap-2 absolute left-4">
         <div>
@@ -36,7 +36,7 @@ export default function FacebookNavbar() {
 
       {/* Center: Navigation Icons */}
       <nav className="flex items-center gap-15 text-gray-500 w-130 justify-between ">
-        <button className="p-2 text-blue-600  border-blue-600">
+        <button className="p-2">
           <HomeLogo className=" h-6" />
         </button>
         <button className="p-2">
