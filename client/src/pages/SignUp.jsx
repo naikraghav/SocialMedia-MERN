@@ -3,6 +3,7 @@ import Logo from "../assets/fb_logo.svg";
 import Footer from "../components/Footer";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
+import summaryApi from "../common/summaryApi";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -59,7 +60,10 @@ const Signup = () => {
     e.preventDefault();
     
     try {
-      const response = await axios.post("http://localhost:5000/api/auth/signup", formData, {
+      const response = await axios({
+        url: summaryApi.signup.url,
+        method: summaryApi.signup.method,
+        data: formData,
         headers: {
           "Content-Type": "application/json",
         },

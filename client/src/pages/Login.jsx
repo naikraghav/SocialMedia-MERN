@@ -3,9 +3,12 @@ import axios from "axios";
 import Logo from "../assets/fb_logo.svg";
 import Footer from "../components/Footer";
 import { Link, useNavigate } from "react-router-dom";
+import summaryApi from "../common/summaryApi";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -24,16 +27,15 @@ const Login = () => {
     console.log(formData);
     // Handle login logic here
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await axios({
+        url: summaryApi.login.url,
+        method: summaryApi.login.method,
+        data: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
       if (response.data.success) {
         console.log("Login successful:", response.data);
         navigate("/");
@@ -73,14 +75,26 @@ const Login = () => {
                   placeholder="Email address or phone number"
                   className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-3 text-[17px] focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-3 text-[17px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                />
+                <div className="relative w-full flex items-center">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="w-full border border-gray-300 rounded-lg px-4 py-3 mb-3 text-[17px] focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-2/5 transform -translate-y-1/2 text-gray-600 cursor-pointer"
+                  >
+                    {showPassword ? (
+                      <FaEye size={20} />
+                    ) : (
+                      <FaEyeSlash size={20} />
+                    )}
+                  </span>
+                </div>
                 <button
                   type="submit"
                   onClick={handleSubmit}
