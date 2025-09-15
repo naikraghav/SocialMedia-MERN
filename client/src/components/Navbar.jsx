@@ -11,9 +11,16 @@ import {
   Messenger,
   Bell,
 } from "./Logo";
-
+import { FaUserCircle, FaChevronDown } from "react-icons/fa";
+import { useState } from "react";
+import Dropdown01 from "./Dropdown01";
 
 export default function FacebookNavbar() {
+  const [openProfile, setOpenProfile] = useState(false);
+  const toggleProfile = () => {
+    setOpenProfile(!openProfile);
+  };
+
   return (
     <header className="w-full h-14 bg-white shadow flex items-center justify-center z-50 px-4">
       {/* Left: Logo + Search */}
@@ -63,14 +70,24 @@ export default function FacebookNavbar() {
         </div>
         <div className="relative w-10 h-10 bg-gray-100 flex items-center justify-center rounded-full">
           <div>
-          <Bell size={20} />
+            <Bell size={20} />
           </div>
           <span className="absolute top-[-6px] right-[-10px] bg-red-600 text-white text-xs px-1.5 rounded-full">
             12
           </span>
         </div>
-        <div className="w-10 h-10 bg-gray-300 flex items-center justify-center rounded-full">
-          <span className="text-gray-700 font-bold">U</span>
+        <div className="relative">
+          <div onClick={toggleProfile} className="relative w-9 h-9">
+            <FaUserCircle className="w-full h-full text-gray-400" />
+            <div className="absolute bottom-0 right-0 bg-white p-1 rounded-full shadow-sm border border-gray-200">
+              <FaChevronDown className="text-gray-600 text-[8px]" />
+            </div>
+          </div>
+          {openProfile && (
+            <div className="absolute z-50 right-0">
+              <Dropdown01 />
+            </div>
+          )}
         </div>
       </div>
     </header>

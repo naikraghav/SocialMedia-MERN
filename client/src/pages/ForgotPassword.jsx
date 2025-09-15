@@ -1,7 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import summaryApi from "../common/summaryApi";
 
 const ForgotPassword = () => {
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    // Handle login logic here
+    try {
+      const response = await axios({
+        url: summaryApi.login.url,
+        method: summaryApi.login.method,
+        data: formData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
+      if (response.data.success) {
+        console.log("Login successful:", response.data);
+        navigate("/");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  };
+
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 font-sans">
       {/* Top Navbar */}
@@ -12,15 +52,23 @@ const ForgotPassword = () => {
             <input
               type="text"
               placeholder="Email or phone"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 text-md focus:outline-none focus:ring-1 focus:ring-blue-500 mb-1 md:mb-0"
             />
             <input
               type="password"
               placeholder="Password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
               className="border border-gray-300 rounded-md px-3 py-2 text-md focus:outline-none focus:ring-1 focus:ring-blue-500 mb-1 md:mb-0"
             />
           </div>
-          <button className="bg-blue-600 text-white px-4 py-2.5 rounded-md text-sm hover:bg-blue-700">
+          <button
+            onClick={handleSubmit}
+            className="bg-blue-600 text-white px-4 py-2.5 rounded-md text-sm hover:bg-blue-700">
             Log in
           </button>
           <a href="#" className="text-blue-600 text-sm hover:underline">
