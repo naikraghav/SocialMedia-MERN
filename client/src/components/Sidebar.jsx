@@ -41,7 +41,7 @@ const Sidebar = () => {
   const [showAll, setShowAll] = useState(false);
 
   return (
-    <div className="w-full max-w-[360px] bg-gray-100 shadow-lg p-3 rounded-lg">
+    <div className=" w-[360px] bg-gray-100  p-3 rounded-lg">
       <nav>
         <ul>
           {/* First item (dynamic user avatar) */}

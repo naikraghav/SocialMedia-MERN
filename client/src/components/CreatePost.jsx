@@ -7,7 +7,7 @@ import reelIcon from "../assets/reels.png";
 
 export default function CreatePost() {
   return (
-    <div className="bg-white rounded-xl shadow-md w-full max-w-[500px] mx-auto p-3">
+    <div className="bg-white rounded-xl shadow-md w-full max-w-[590px] mx-auto p-3">
 
 
       {/* Input section */}
